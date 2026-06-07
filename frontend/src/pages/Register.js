@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 
 function Register() {
 
@@ -9,9 +9,9 @@ function Register() {
 
   const handleRegister = () => {
 
-    axios
+    API
       .post(
-        "https://leetcode-tracker-ufb8.onrender.com/api/users/register",
+        "/users/register",
         {
           name,
           email,
@@ -21,7 +21,6 @@ function Register() {
       .then(() => {
 
         alert("Registration Successful ✅");
-
         window.location.href = "/login";
 
       })
