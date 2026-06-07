@@ -22,7 +22,8 @@ public class CorsConfig {
                         .addMapping("/**")
                         .allowedOrigins(
                                 "http://localhost:3000",
-                                "http://localhost:3001"
+                                "http://localhost:3001",
+                                "https://leetcode-tracker-brown-one.vercel.app"
                         )
                         .allowedMethods(
                                 "GET",
