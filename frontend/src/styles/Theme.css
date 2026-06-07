@@ -1,0 +1,18 @@
+:root{
+  --primary:#23CED9;
+  --secondary:#097C87;
+  --bg:#041F22;
+  --card:#0B3940;
+  --text:#ffffff;
+}
+body[data-theme="light"]{
+
+  --primary:#2563eb;
+  --secondary:#1d4ed8;
+
+  --bg:#f4f7fb;
+  --card:#ffffff;
+
+  --text:#111827;
+
+}
