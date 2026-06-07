@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 
 function StudyPlan() {
 
@@ -8,20 +8,18 @@ function StudyPlan() {
 
   useEffect(() => {
 
-    axios
-      .get(
-        "http://localhost:8080/api/problems"
-      )
-      .then((response) => {
+  API
+    .get("/problems")
+    .then((response) => {
 
-        setProblems(
-          response.data
-        );
+      setProblems(
+        response.data
+      );
 
-      })
-      .catch(console.log);
+    })
+    .catch(console.log);
 
-  }, []);
+}, []);
 
   const topicData = {};
 

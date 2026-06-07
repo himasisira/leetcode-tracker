@@ -11,7 +11,7 @@ function Register() {
 
     axios
       .post(
-        "http://localhost:8080/api/users/register",
+        "https://leetcode-tracker-ufb8.onrender.com/api/users/register",
         {
           name,
           email,

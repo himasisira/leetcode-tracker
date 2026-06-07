@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
@@ -11,24 +11,22 @@ function Activity() {
 
   useEffect(() => {
 
-    axios
-      .get(
-        "http://localhost:8080/api/problems"
-      )
-      .then((response) => {
+  API
+    .get("/problems")
+    .then((response) => {
 
-        setProblems(
-          response.data
-        );
+      setProblems(
+        response.data
+      );
 
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
 
-        console.log(error);
+      console.log(error);
 
-      });
+    });
 
-  }, []);
+}, []);
 
   const solvedProblems =
     problems.filter(

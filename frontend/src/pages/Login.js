@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 
 function Login() {
 
@@ -8,9 +8,9 @@ function Login() {
 
   const handleLogin = () => {
 
-    axios
+    API
       .post(
-        "http://localhost:8080/api/users/login",
+        "/users/login",
         {
           email,
           password
@@ -26,9 +26,13 @@ function Login() {
         alert("Login Successful ✅");
 
         window.location.href = "/";
+
       })
-      .catch(() => {
+      .catch((error) => {
+
+        console.log(error);
         alert("Invalid Credentials ❌");
+
       });
 
   };
@@ -44,7 +48,7 @@ function Login() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e)=>
+          onChange={(e) =>
             setEmail(e.target.value)
           }
         />
@@ -53,7 +57,7 @@ function Login() {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e)=>
+          onChange={(e) =>
             setPassword(e.target.value)
           }
         />

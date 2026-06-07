@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 
 import {
   BarChart,
@@ -18,23 +18,20 @@ function Analytics() {
 
   const [problems, setProblems] =
     useState([]);
+useEffect(() => {
 
-  useEffect(() => {
+  API
+    .get("/problems")
+    .then((response) => {
 
-    axios
-      .get(
-        "http://localhost:8080/api/problems"
-      )
-      .then((response) => {
+      setProblems(
+        response.data
+      );
 
-        setProblems(
-          response.data
-        );
+    })
+    .catch(console.log);
 
-      })
-      .catch(console.log);
-
-  }, []);
+}, []);
 
   const easy =
     problems.filter(

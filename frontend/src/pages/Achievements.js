@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 
 function Achievements() {
 
@@ -8,10 +8,8 @@ function Achievements() {
 
   useEffect(() => {
 
-    axios
-      .get(
-        "http://localhost:8080/api/problems"
-      )
+    API
+      .get("/problems")
       .then((response) => {
 
         setProblems(

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { saveAs } from "file-saver";
 
+import API from "../services/api";
 import ProblemTable from "../components/ProblemTable";
 import EditProblemForm from "../components/EditProblemForm";
 
@@ -27,20 +27,16 @@ function Problems() {
 
   const fetchProblems = () => {
 
-    axios
-      .get(
-        "http://localhost:8080/api/problems"
-      )
-      .then((response) => {
+   const fetchProblems = () => {
 
-        setProblems(response.data);
+  API
+    .get("/problems")
+    .then((response) => {
+      setProblems(response.data);
+    })
+    .catch(console.log);
 
-      })
-      .catch((error) => {
-
-        console.log(error);
-
-      });
+};
 
   };
 
@@ -52,75 +48,69 @@ function Problems() {
 
   const deleteProblem = (id) => {
 
-    axios
-      .delete(
-        `http://localhost:8080/api/problems/${id}`
-      )
-      .then(fetchProblems)
-      .catch(console.log);
+  API
+    .delete(`/problems/${id}`)
+    .then(fetchProblems)
+    .catch(console.log);
 
-  };
+};
 
-  const updateProblem = (
-    updatedProblem
-  ) => {
+ const updateProblem = (updatedProblem) => {
 
-    axios
-      .put(
-        `http://localhost:8080/api/problems/${updatedProblem.id}`,
-        updatedProblem
-      )
-      .then(() => {
+  API
+    .put(
+      `/problems/${updatedProblem.id}`,
+      updatedProblem
+    )
+    .then(() => {
 
-        fetchProblems();
-        setEditingProblem(null);
+      fetchProblems();
+      setEditingProblem(null);
 
-      })
-      .catch(console.log);
+    })
+    .catch(console.log);
 
-  };
+};
 
-  const updateStatus = (
-    id,
-    status
-  ) => {
+const updateStatus = (
+  id,
+  status
+) => {
 
-    const problem =
-      problems.find(
-        p => p.id === id
-      );
+  const problem =
+    problems.find(
+      p => p.id === id
+    );
 
-    axios
-      .put(
-        `http://localhost:8080/api/problems/${id}`,
-        {
-          ...problem,
-          status
-        }
-      )
-      .then(fetchProblems)
-      .catch(console.log);
+  API
+    .put(
+      `/problems/${id}`,
+      {
+        ...problem,
+        status
+      }
+    )
+    .then(fetchProblems)
+    .catch(console.log);
 
-  };
+};
 
-  const toggleFavorite = (
-    problem
-  ) => {
+const toggleFavorite = (
+  problem
+) => {
 
-    axios
-      .put(
-        `http://localhost:8080/api/problems/${problem.id}`,
-        {
-          ...problem,
-          favorite:
-            !problem.favorite
-        }
-      )
-      .then(fetchProblems)
-      .catch(console.log);
+  API
+    .put(
+      `/problems/${problem.id}`,
+      {
+        ...problem,
+        favorite: !problem.favorite
+      }
+    )
+    .then(fetchProblems)
+    .catch(console.log);
 
-  };
-
+};
   const exportCSV = () => {
 
     const headers = [

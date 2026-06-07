@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../services/api";
 
 import {
   PieChart,
@@ -17,24 +17,22 @@ function Dashboard() {
 
   useEffect(() => {
 
-    axios
-      .get(
-        "http://localhost:8080/api/problems"
-      )
-      .then((response) => {
+  API
+    .get("/problems")
+    .then((response) => {
 
-        setProblems(
-          response.data
-        );
+      setProblems(
+        response.data
+      );
 
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
 
-        console.log(error);
+      console.log(error);
 
-      });
+    });
 
-  }, []);
+}, []);
 
   const totalProblems =
     problems.length;
