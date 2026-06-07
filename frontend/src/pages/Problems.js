@@ -25,9 +25,7 @@ function Problems() {
   const [favoriteFilter, setFavoriteFilter] =
     useState("All");
 
-  const fetchProblems = () => {
-
-   const fetchProblems = () => {
+ const fetchProblems = () => {
 
   API
     .get("/problems")
@@ -37,8 +35,6 @@ function Problems() {
     .catch(console.log);
 
 };
-
-  };
 
   useEffect(() => {
 
