@@ -17,15 +17,22 @@ function AddProblemForm({ onAdd }) {
 
     if (!title.trim()) return;
 
+    const userId =
+      localStorage.getItem("userId");
+
     onAdd({
       title,
       difficulty,
-      status
+      status,
+      user: {
+        id: Number(userId)
+      }
     });
 
     setTitle("");
     setDifficulty("Easy");
     setStatus("Attempted");
+
   };
 
   return (

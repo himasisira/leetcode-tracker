@@ -25,16 +25,20 @@ function Problems() {
   const [favoriteFilter, setFavoriteFilter] =
     useState("All");
 
- const fetchProblems = () => {
+  const fetchProblems = () => {
 
-  API
-    .get("/problems")
-    .then((response) => {
-      setProblems(response.data);
-    })
-    .catch(console.log);
+    API
+      .get("/problems")
+      .then((response) => {
 
-};
+        setProblems(
+          response.data
+        );
+
+      })
+      .catch(console.log);
+
+  };
 
   useEffect(() => {
 
@@ -44,69 +48,70 @@ function Problems() {
 
   const deleteProblem = (id) => {
 
-  API
-    .delete(`/problems/${id}`)
-    .then(fetchProblems)
-    .catch(console.log);
+    API
+      .delete(`/problems/${id}`)
+      .then(fetchProblems)
+      .catch(console.log);
 
-};
+  };
 
- const updateProblem = (updatedProblem) => {
+  const updateProblem = (updatedProblem) => {
 
-  API
-    .put(
-      `/problems/${updatedProblem.id}`,
-      updatedProblem
-    )
-    .then(() => {
+    API
+      .put(
+        `/problems/${updatedProblem.id}`,
+        updatedProblem
+      )
+      .then(() => {
 
-      fetchProblems();
-      setEditingProblem(null);
+        fetchProblems();
+        setEditingProblem(null);
 
-    })
-    .catch(console.log);
+      })
+      .catch(console.log);
 
-};
+  };
 
-const updateStatus = (
-  id,
-  status
-) => {
+  const updateStatus = (
+    id,
+    status
+  ) => {
 
-  const problem =
-    problems.find(
-      p => p.id === id
-    );
+    const problem =
+      problems.find(
+        p => p.id === id
+      );
 
-  API
-    .put(
-      `/problems/${id}`,
-      {
-        ...problem,
-        status
-      }
-    )
-    .then(fetchProblems)
-    .catch(console.log);
+    API
+      .put(
+        `/problems/${id}`,
+        {
+          ...problem,
+          status
+        }
+      )
+      .then(fetchProblems)
+      .catch(console.log);
 
-};
+  };
 
-const toggleFavorite = (
-  problem
-) => {
+  const toggleFavorite = (
+    problem
+  ) => {
 
-  API
-    .put(
-      `/problems/${problem.id}`,
-      {
-        ...problem,
-        favorite: !problem.favorite
-      }
-    )
-    .then(fetchProblems)
-    .catch(console.log);
+    API
+      .put(
+        `/problems/${problem.id}`,
+        {
+          ...problem,
+          favorite: !problem.favorite
+        }
+      )
+      .then(fetchProblems)
+      .catch(console.log);
 
-};
+  };
+
   const exportCSV = () => {
 
     const headers = [

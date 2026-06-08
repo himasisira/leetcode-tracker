@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import Sidebar from "./components/Sidebar";
@@ -9,7 +9,6 @@ import Planner from "./pages/Planner";
 import Analytics from "./pages/Analytics";
 import StudyPlan from "./pages/StudyPlan";
 import Achievements from "./pages/Achievements";
-
 import Activity from "./pages/Activity";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -19,11 +18,12 @@ import "./styles/Theme.css";
 
 function App() {
 
-  const [theme, setTheme] =
-    useState(
-      localStorage.getItem("theme")
-      || "dark"
-    );
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "dark"
+  );
+
+  const token =
+    localStorage.getItem("token");
 
   useEffect(() => {
 
@@ -41,72 +41,103 @@ function App() {
 
   return (
 
-    <BrowserRouter>
+    <div className="app">
 
-      <div className="app">
+      <Sidebar
+        theme={theme}
+        setTheme={setTheme}
+      />
 
-        <Sidebar
-          theme={theme}
-          setTheme={setTheme}
-        />
+      <div className="main">
 
-        <div className="main">
+        <Routes>
 
-          <Routes>
+          <Route
+            path="/"
+            element={
+              token
+                ? <Dashboard />
+                : <Navigate to="/login" />
+            }
+          />
 
-            <Route
-              path="/"
-              element={<Dashboard />}
-            />
+          <Route
+            path="/problems"
+            element={
+              token
+                ? <Problems />
+                : <Navigate to="/login" />
+            }
+          />
 
-            <Route
-              path="/problems"
-              element={<Problems />}
-            />
+          <Route
+            path="/planner"
+            element={
+              token
+                ? <Planner />
+                : <Navigate to="/login" />
+            }
+          />
 
-            <Route
-              path="/planner"
-              element={<Planner />}
-            />
+          <Route
+            path="/analytics"
+            element={
+              token
+                ? <Analytics />
+                : <Navigate to="/login" />
+            }
+          />
 
-            <Route
-              path="/analytics"
-              element={<Analytics />}
-            />
+          <Route
+            path="/studyplan"
+            element={
+              token
+                ? <StudyPlan />
+                : <Navigate to="/login" />
+            }
+          />
 
-            <Route
-              path="/studyplan"
-              element={<StudyPlan />}
-            />
+          <Route
+            path="/achievements"
+            element={
+              token
+                ? <Achievements />
+                : <Navigate to="/login" />
+            }
+          />
 
-            <Route
-              path="/achievements"
-              element={<Achievements />}
-            />
+          <Route
+            path="/activity"
+            element={
+              token
+                ? <Activity />
+                : <Navigate to="/login" />
+            }
+          />
 
-           
-            <Route
-              path="/activity"
-              element={<Activity />}
-            />
+          <Route
+            path="/login"
+            element={
+              token
+                ? <Navigate to="/" />
+                : <Login />
+            }
+          />
 
-            <Route
-              path="/login"
-              element={<Login />}
-            />
+          <Route
+            path="/register"
+            element={
+              token
+                ? <Navigate to="/" />
+                : <Register />
+            }
+          />
 
-            <Route
-              path="/register"
-              element={<Register />}
-            />
-
-          </Routes>
-
-        </div>
+        </Routes>
 
       </div>
 
-    </BrowserRouter>
+    </div>
 
   );
 

@@ -5,13 +5,15 @@ function Sidebar({
   setTheme
 }) {
 
-  const user = JSON.parse(
-    localStorage.getItem("user")
-  );
+  const token =
+    localStorage.getItem("token");
+
+  const userName =
+    localStorage.getItem("userName");
 
   const logout = () => {
 
-    localStorage.removeItem("user");
+    localStorage.clear();
 
     window.location.href = "/login";
 
@@ -25,17 +27,17 @@ function Sidebar({
 
         <div className="logo-container">
 
-  <img
-    src="/logo192.png"
-    alt="LeetTrack"
-    className="sidebar-logo"
-  />
+          <img
+            src="/logo192.png"
+            alt="LeetTrack"
+            className="sidebar-logo"
+          />
 
-  <h2 className="logo">
-    LeetTrack
-  </h2>
+          <h2 className="logo">
+            LeetTrack
+          </h2>
 
-</div>
+        </div>
 
         <ul>
 
@@ -68,12 +70,13 @@ function Sidebar({
               📚 Study Plan
             </Link>
           </li>
-<li>
-  <Link to="/achievements">
-    🏅 Achievements
-  </Link>
-</li>
-          
+
+          <li>
+            <Link to="/achievements">
+              🏅 Achievements
+            </Link>
+          </li>
+
           <li>
             <Link to="/activity">
               🔥 Activity
@@ -103,17 +106,15 @@ function Sidebar({
           }
         </button>
 
-        {user && (
+        {token && (
 
           <div className="user-box">
-
-            👤 {user.name}
-
+            👤 {userName}
           </div>
 
         )}
 
-        {!user && (
+        {!token && (
 
           <>
 
@@ -135,13 +136,13 @@ function Sidebar({
 
         )}
 
-        {user && (
+        {token && (
 
           <button
             className="logout-btn"
             onClick={logout}
           >
-            🚪 Sign Out
+            🚪 Logout
           </button>
 
         )}

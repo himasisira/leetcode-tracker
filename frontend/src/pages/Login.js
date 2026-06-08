@@ -8,29 +8,62 @@ function Login() {
 
   const handleLogin = () => {
 
-    API
-      .post(
-        "/users/login",
-        {
-          email,
-          password
-        }
-      )
+    API.post("/auth/login", {
+      username: email,
+      password: password
+    })
       .then((response) => {
 
-        localStorage.setItem(
-          "user",
-          JSON.stringify(response.data)
-        );
+        console.log("Response:", response);
+        console.log("Data:", response.data);
 
-        alert("Login Successful ✅");
+        if (response.data && response.data.token) {
 
-        window.location.href = "/";
+          localStorage.setItem(
+            "token",
+            response.data.token
+          );
+
+          localStorage.setItem(
+            "userId",
+            response.data.userId
+          );
+
+          localStorage.setItem(
+            "userName",
+            response.data.name
+          );
+
+          alert("Login Successful ✅");
+
+          window.location.href = "/";
+
+        } else {
+
+          console.log("Token not found in response");
+          alert("Login response received but token missing");
+
+        }
 
       })
       .catch((error) => {
 
-        console.log(error);
+        console.log("Full Error:", error);
+
+        if (error.response) {
+
+          console.log(
+            "Status:",
+            error.response.status
+          );
+
+          console.log(
+            "Data:",
+            error.response.data
+          );
+
+        }
+
         alert("Invalid Credentials ❌");
 
       });
@@ -38,6 +71,7 @@ function Login() {
   };
 
   return (
+
     <div className="auth-container">
 
       <div className="auth-card">
@@ -62,16 +96,16 @@ function Login() {
           }
         />
 
-        <button
-          onClick={handleLogin}
-        >
+        <button onClick={handleLogin}>
           Login
         </button>
 
       </div>
 
     </div>
+
   );
+
 }
 
 export default Login;
