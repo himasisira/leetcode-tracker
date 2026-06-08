@@ -18,11 +18,12 @@ public class SecurityConfig {
 
                         // Public APIs
                         .requestMatchers(
-                                "/api/users/login",
-                                "/api/users/register"
+                                "/api/auth/**",
+                                "/api/users/register",
+                                "/api/users/login"
                         ).permitAll()
 
-                        // Everything else requires login
+                        // Everything else requires authentication
                         .anyRequest().authenticated()
                 );
 
