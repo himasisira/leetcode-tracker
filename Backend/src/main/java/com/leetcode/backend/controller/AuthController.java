@@ -26,15 +26,33 @@ public class AuthController {
             @RequestBody LoginRequest request
     ) {
 
+        System.out.println("========== LOGIN DEBUG ==========");
+        System.out.println("Username received = " + request.getUsername());
+        System.out.println("Password received = " + request.getPassword());
+
         User user =
                 userRepository.findByEmail(
                         request.getUsername()
                 );
 
-        if (user == null ||
-                !user.getPassword().equals(
-                        request.getPassword()
-                )) {
+        System.out.println("User found = " + user);
+
+        if (user == null) {
+
+            System.out.println("User not found in database");
+
+            throw new RuntimeException(
+                    "Invalid email or password"
+            );
+        }
+
+        System.out.println("Database password = " + user.getPassword());
+
+        if (!user.getPassword().equals(
+                request.getPassword()
+        )) {
+
+            System.out.println("Password mismatch");
 
             throw new RuntimeException(
                     "Invalid email or password"
@@ -46,6 +64,7 @@ public class AuthController {
                         user.getEmail()
                 );
 
+        System.out.println("LOGIN SUCCESS");
         System.out.println("Generated Token = " + token);
 
         return new AuthResponse(token);
