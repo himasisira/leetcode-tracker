@@ -11,7 +11,7 @@ import java.util.List;
         origins = {
                 "http://localhost:3000",
                 "http://localhost:3001",
-                "https://leetcode-tracker-brown-one.vercel.app"
+                "https://leetcode-tracker-44ot5x389-himasisiras-projects.vercel.app"
         }
 )
 @RestController

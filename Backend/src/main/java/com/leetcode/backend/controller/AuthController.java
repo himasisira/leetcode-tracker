@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(
         origins = {
                 "http://localhost:3000",
-                "https://leetcode-tracker-brown-one.vercel.app"
+                "https://leetcode-tracker-44ot5x389-himasisiras-projects.vercel.app"
         }
 )
 public class AuthController {
