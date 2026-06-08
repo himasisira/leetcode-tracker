@@ -22,16 +22,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user) {
+    public User registerUser(
+            @RequestBody User user
+    ) {
         return userService.saveUser(user);
-    }
-
-    @PostMapping("/login")
-    public User loginUser(@RequestBody User loginData) {
-        return userService.loginUser(
-                loginData.getEmail(),
-                loginData.getPassword()
-        );
     }
 
     @GetMapping
@@ -40,20 +34,27 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public User getUserById(
+            @PathVariable Long id
+    ) {
         return userService.getUserById(id);
     }
 
     @PutMapping("/{id}")
     public User updateUser(
             @PathVariable Long id,
-            @RequestBody User updatedUser) {
-
-        return userService.updateUser(id, updatedUser);
+            @RequestBody User updatedUser
+    ) {
+        return userService.updateUser(
+                id,
+                updatedUser
+        );
     }
 
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id) {
+    public String deleteUser(
+            @PathVariable Long id
+    ) {
         return userService.deleteUser(id);
     }
 }
